@@ -58,9 +58,21 @@ $speelveld = [
     [2,0,2,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2,0,2],
 ];
-echo $_GET['eersteklik'];
-echo $_GET['tweedeklik'];
+//echo $_GET['eersteklik'];
+//echo $_GET['tweedeklik'];
+if(isset($_GET['eersteklik'])){
+    zetverwerken($_GET['eersteklik'], $_GET['tweedeklik']);
+}
+
 tabelmaken();
+
+function zetverwerken($startklik, $eindklik){
+    global $speelveld;
+    $speelveld[$eindklik[0]][$eindklik[1]] = $speelveld[$startklik[0]][$startklik[1]];
+    echo "ZET VERWERKEN";
+    
+    
+}
 
 function tabelmaken(){
     $hb = 10;
