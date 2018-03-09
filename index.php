@@ -29,20 +29,19 @@
     </head>
     <body>
 <?php
-tabelmaken();
-
 $speelveld = [
     [1,0,1,0,1,0,1,0,1,0],
     [0,1,0,1,0,1,0,1,0,1],
     [1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1,0,1],
+    [0,1,0,1,0,1,0,0,0,1],
+    [2,0,0,0,0,0,0,0,1,0],
     [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [2,0,2,0,2,0,2,0,2,0],
+    [2,0,0,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2,0,2],
     [2,0,2,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2,0,2],
 ];
+tabelmaken();
 
 function tabelmaken(){
     $hb = 10;
@@ -62,26 +61,25 @@ function tabelmaken(){
 }
 
 function bepaalkleur($positiey,$positiex, $omgekeerd = false){
+    $achtergrond = $positiey;
     if($omgekeerd){
-        $positiey++;
+        $achtergrond = $positiey + 1;
     }
-    if($positiey % 2 == 0){
+    if($achtergrond % 2 == 0){
         return "<td class=wit></td>";
     }else{
-        return "<td class=zwart ><div id=steen".$positiex."".$positiey." class=".bepaalsteen().">.</div></td>\n";
+        return "<td class=zwart ><div id=steen".$positiex."".$positiey." class=".bepaalsteen($positiex,$positiey).">.</div></td>\n";
     }
 }
-$stenenTeller = 0;
-function bepaalsteen(){
-    global $stenenTeller;
-    $stenenTeller++;
-    if($stenenTeller > 20){
-        if($stenenTeller <= 30){
+function bepaalsteen($x, $y){
+    global $speelveld;
+    switch($speelveld[$x][$y]){
+        case 1:
+            return "steenblauw";
+        case 2:
+            return "steenrood";
+        default:
             return "";
-        }
-        return "steenblauw";
-    }else{
-        return "steenrood";
     }
 }
 
