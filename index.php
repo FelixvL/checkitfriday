@@ -27,6 +27,7 @@
             }
         </style>
         <script>
+            
             var eersteklik = "";
             var tweedeklik = "";
             var aantalkeergeklikt = 0;
@@ -46,18 +47,29 @@
     </head>
     <body>
 <?php
+session_start();
+if(isset($_GET['newgame'])){
+if($_GET['newgame'] == "newgame"){
+    $_SESSION['speelveld'] = getSpeelveld();
+}
+
+}
+$speelveld = $_SESSION['speelveld'];
+function getSpeelveld(){
 $speelveld = [
     [1,0,1,0,1,0,1,0,1,0],
     [0,1,0,1,0,1,0,1,0,1],
     [1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,0,0,1],
-    [2,0,0,0,0,0,0,0,1,0],
+    [0,1,0,1,0,1,0,1,0,1],
     [0,0,0,0,0,0,0,0,0,0],
-    [2,0,0,0,2,0,2,0,2,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [2,0,2,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2,0,2],
     [2,0,2,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2,0,2],
 ];
+return $speelveld;
+}
 //echo $_GET['eersteklik'];
 //echo $_GET['tweedeklik'];
 if(isset($_GET['eersteklik'])){
@@ -65,11 +77,11 @@ if(isset($_GET['eersteklik'])){
 }
 
 tabelmaken();
-
+$_SESSION['speelveld'] = $speelveld;
 function zetverwerken($startklik, $eindklik){
     global $speelveld;
     $speelveld[$eindklik[0]][$eindklik[1]] = $speelveld[$startklik[0]][$startklik[1]];
-    echo "ZET VERWERKEN";
+    $speelveld[$startklik[0]][$startklik[1]] = 0;
     
     
 }
