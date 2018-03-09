@@ -26,6 +26,23 @@
                 background-color:blue;
             }
         </style>
+        <script>
+            var eersteklik = "";
+            var tweedeklik = "";
+            var aantalkeergeklikt = 0;
+            function klik(xas, yas){
+                if(aantalkeergeklikt == 0){
+                    eersteklik = ""+xas+""+yas;                    
+                }
+                if(aantalkeergeklikt == 1){
+                    tweedeklik = ""+xas+""+yas;                    
+                    document.location = "?eersteklik="+eersteklik+"&tweedeklik="+tweedeklik;
+                }
+                
+                aantalkeergeklikt++;
+                console.log(aantalkeergeklikt);
+            }
+        </script>
     </head>
     <body>
 <?php
@@ -41,6 +58,8 @@ $speelveld = [
     [2,0,2,0,2,0,2,0,2,0],
     [0,2,0,2,0,2,0,2,0,2],
 ];
+echo $_GET['eersteklik'];
+echo $_GET['tweedeklik'];
 tabelmaken();
 
 function tabelmaken(){
@@ -65,10 +84,11 @@ function bepaalkleur($positiey,$positiex, $omgekeerd = false){
     if($omgekeerd){
         $achtergrond = $positiey + 1;
     }
+    $extrainfo = "onclick=klik($positiex,$positiey)";
     if($achtergrond % 2 == 0){
-        return "<td class=wit id=vakje".$positiex."".$positiey."></td>";
+        return "<td class=wit  $extrainfo id=vakje".$positiex."".$positiey."></td>";
     }else{
-        return "<td class=zwart id=vakje".$positiex."".$positiey."><div id=steen".$positiex."".$positiey." class=".bepaalsteen($positiex,$positiey)."></div></td>\n";
+        return "<td class=zwart $extrainfo id=vakje".$positiex."".$positiey."><div id=steen".$positiex."".$positiey." class=".bepaalsteen($positiex,$positiey)."></div></td>\n";
     }
 }
 function bepaalsteen($x, $y){
