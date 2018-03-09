@@ -66,9 +66,9 @@ function bepaalkleur($positiey,$positiex, $omgekeerd = false){
         $achtergrond = $positiey + 1;
     }
     if($achtergrond % 2 == 0){
-        return "<td class=wit></td>";
+        return "<td class=wit id=vakje".$positiex."".$positiey."></td>";
     }else{
-        return "<td class=zwart ><div id=steen".$positiex."".$positiey." class=".bepaalsteen($positiex,$positiey).">.</div></td>\n";
+        return "<td class=zwart id=vakje".$positiex."".$positiey."><div id=steen".$positiex."".$positiey." class=".bepaalsteen($positiex,$positiey)."></div></td>\n";
     }
 }
 function bepaalsteen($x, $y){
