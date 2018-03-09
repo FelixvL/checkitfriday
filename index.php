@@ -31,6 +31,19 @@
 <?php
 tabelmaken();
 
+$speelveld = [
+    [1,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,1],
+    [1,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,1],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [2,0,2,0,2,0,2,0,2,0],
+    [0,2,0,2,0,2,0,2,0,2],
+    [2,0,2,0,2,0,2,0,2,0],
+    [0,2,0,2,0,2,0,2,0,2],
+];
+
 function tabelmaken(){
     $hb = 10;
     echo "<table>";
@@ -38,9 +51,9 @@ function tabelmaken(){
         echo "<tr>";
         for($y=0; $y<$hb;$y++){
             if($x % 2){
-                echo bepaalkleur($y);
+                echo bepaalkleur($y,$x);
             }else{
-                echo bepaalkleur($y,true);
+                echo bepaalkleur($y,$x,true);
             }
         }
         echo "</tr>";
@@ -48,19 +61,18 @@ function tabelmaken(){
     echo "</table>";
 }
 
-function bepaalkleur($positie, $omgekeerd = false){
+function bepaalkleur($positiey,$positiex, $omgekeerd = false){
     if($omgekeerd){
-        $positie++;
+        $positiey++;
     }
-    if($positie % 2 == 0){
+    if($positiey % 2 == 0){
         return "<td class=wit></td>";
     }else{
-        return "<td class=zwart><div class=".bepaalsteen().">.</div></td>";
+        return "<td class=zwart ><div id=steen".$positiex."".$positiey." class=".bepaalsteen().">.</div></td>\n";
     }
 }
 $stenenTeller = 0;
 function bepaalsteen(){
-
     global $stenenTeller;
     $stenenTeller++;
     if($stenenTeller > 20){
