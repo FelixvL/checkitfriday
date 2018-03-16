@@ -5,15 +5,39 @@ $ps = "";
 $host = "localhost";
 if (isset ($_GET['symbool'])){
     $conn = mysqli_connect($host, $user, $ps, $db);
-    $sql="INSERT INTO `spelers`( `naam`, `laatsteworp`) VALUES ( '".$_GET['speler1']."' ,'".$_GET['symbool']."')";
+    $sql="INSERT INTO `spelers`( `naam`, `laatsteworp`) VALUES ( '".$_GET['speler1']."' ,'"
+            . "".$_GET['symbool']."')";
     //echo $sql;
     $conn->query($sql);
-    $sql = "SELECT * FROM `spelers` WHERE naam = '".$_GET['speler2']."';";
-    echo $sql;
+    $sql = "SELECT * FROM `spelers` WHERE naam = '".$_GET['speler2']."' LIMIT 1;";
+//    echo $sql;
     $result = $conn->query($sql);
     
-    while($row = $result->fetch_assoc()){
-        echo $row['laatsteworp'];
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()){
+            $mijnWorp = $_GET['symbool'];
+            $zijnWorp = $row['laatsteworp'];
+            echo 'Jij koos: ' . $mijnWorp . ', je tegenstander koos '.$zijnWorp;
+            echo '<br>';
+            
+            if($mijnWorp == $zijnWorp) {
+                echo 'Het is gelijk';
+            } elseif($mijnWorp == 'papier' && $zijnWorp == 'steen') {
+                echo 'Je hebt gewonnen!';
+            } elseif($mijnWorp == 'steen' && $zijnWorp == 'papier') {
+                echo 'Je hebt verloren!';
+            } elseif($mijnWorp == 'schaar' && $zijnWorp == 'steen') {
+                echo 'Je hebt verloren!';
+            } elseif($mijnWorp == 'schaar' && $zijnWorp == 'papier') {
+                echo 'Je hebt gewonnen!';
+            } elseif($mijnWorp == 'papier' && $zijnWorp == 'schaar') {
+                echo 'Je hebt verloren!';
+            } elseif($mijnWorp == 'steen' && $zijnWorp == 'schaar') {
+                echo 'Je hebt gewonnen!';
+            }
+        }
+    } else {
+        echo 'Je tegenstander heeft nog niet gegooid';
     }
     
 }
