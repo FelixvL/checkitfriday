@@ -4,13 +4,18 @@ $user = "root";
 $ps = "";
 $host = "localhost";
 if (isset ($_GET['symbool'])){
-$conn = mysqli_connect($host, $user, $ps, $db);
-}
-if (isset ($_GET['symbool'])){
-    $sql="INSERT INTO `spelers`(`laatsteworp`) VALUES ('".$_GET['symbool']."');";
-}
-if (isset ($_GET['symbool'])){
+    $conn = mysqli_connect($host, $user, $ps, $db);
+    $sql="INSERT INTO `spelers`( `naam`, `laatsteworp`) VALUES ( '".$_GET['speler1']."' ,'".$_GET['symbool']."')";
+    //echo $sql;
     $conn->query($sql);
+    $sql = "SELECT * FROM `spelers` WHERE naam = '".$_GET['speler2']."';";
+    echo $sql;
+    $result = $conn->query($sql);
+    
+    while($row = $result->fetch_assoc()){
+        echo $row['laatsteworp'];
+    }
+    
 }
 class Game {
     public $id;
