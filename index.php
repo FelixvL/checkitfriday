@@ -1,5 +1,14 @@
 <?php
+$db = "voorbeeld";
+$user = "root";
+$ps = "";
+$host = "localhost";
 
+$conn = mysqli_connect($host, $user, $ps, $db);
+
+$sql="INSERT INTO `spelers`(`laatsteworp`) VALUES ('steen');";
+
+$conn->query($sql);
 class Game {
     public $id;
 }
@@ -29,7 +38,10 @@ function maakKnopen($symbool){
 maakknopen('steen');
 maakknopen('papier');
 maakknopen('schaar');
-
+echo "<br>";
+maakknopen('steen');
+maakknopen('papier');
+maakknopen('schaar');
 ?>
 
 <script>
