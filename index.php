@@ -6,7 +6,7 @@ $host = "localhost";
 
 $conn = mysqli_connect($host, $user, $ps, $db);
 
-$sql="INSERT INTO `spelers`(`laatsteworp`) VALUES ('steen');";
+$sql="INSERT INTO `spelers`(`laatsteworp`) VALUES ('".$_GET['symbool']."');";
 
 $conn->query($sql);
 class Game {
@@ -38,16 +38,12 @@ function maakKnopen($symbool){
 maakknopen('steen');
 maakknopen('papier');
 maakknopen('schaar');
-echo "<br>";
-maakknopen('steen');
-maakknopen('papier');
-maakknopen('schaar');
 ?>
 
 <script>
     
 function getSymbool(symbool){
-    alert(symbool);
+    document.location = 'index.php?symbool='+symbool ;
     
 }    
     
